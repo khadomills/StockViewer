@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <header>
+        <h1>{% block title %} Stock Viewer by Group C {% endblock %}</h1>
+    </header>
+
+    <main>
+        <section id="top-section">
+            <!-- stock image -->
+            <img src="{{url_for('static', filename='/Image/stocks.jpg')}}" alt=""
+                 width="1000"
+                 height="500"
+            >
+        </section>
+
+        <section id="content">
+            {% for stock in stock_data %}
+                <div class='stock'>
+                    <h2>Stock ID: {{ stock['stock_id'] }}</h2>
+                    <h2>TICKR: {{ stock['symbol'] }}</h2>
+                    <h2>Company Name: {{ stock['name'] }}</h2>
+                </div>
+            {% endfor %}
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; Jake and Nathan</p>
+    </footer>
+
+{% endblock %}
