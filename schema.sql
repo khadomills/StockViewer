@@ -47,6 +47,7 @@ CREATE TABLE stock_data(
   `shares_outstanding` BIGINT(255) NOT NULL,
   `div_date` DATE NOT NULL,
   `ex_div_date` DATE NOT NULL,
+  `last_updated` DATE NOT NULL,
   PRIMARY KEY (`stock_id`));
   
   CREATE TABLE stock_share_prices(
