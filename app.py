@@ -1,6 +1,6 @@
 import sqlite3
 
-from flask import Flask, render_template
+from flask import Flask, render_template, redirect, url_for
 from StockDataRetriever import StockDataRetriever
 
 app = Flask(__name__)
@@ -42,6 +42,8 @@ def index():
 def testoverviewgrabber():
     api_grabber = StockDataRetriever()
     api_grabber.fetch_overview_data()
+
+    return redirect(url_for('home'))
 
 
 @app.route('/testhistoricalgrabber')

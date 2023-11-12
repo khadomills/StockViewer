@@ -86,10 +86,6 @@ class StockDataRetriever:
             # Make the API request
             response = requests.get(url, headers=headers, params=querystring)
 
-            if symbol == 'GME':
-                stock_id += 1
-                continue
-
             # Process the data as needed (e.g., print or store in a database)
             data = response.json()
             print(data)
@@ -100,7 +96,7 @@ class StockDataRetriever:
 
             # Insert data into the 'stocks' table
             query = '''
-            INSERT INTO stock_data (
+            INSERT OR REPLACE INTO stock_data (
                 stock_id, symbol, name, desc, CIK, currency, country, sector, industry, address,
                 fiscal_year_end, latest_qtr, market_capitalization, EBITDA, PERatio, PEGRatio,
                 book_value, div_per_share, div_yield, EPS, rev_per_shareTTM, profit_margin,
@@ -131,37 +127,37 @@ class StockDataRetriever:
                 data['Address'],
                 data['FiscalYearEnd'],
                 data['LatestQuarter'],
-                int(data['MarketCapitalization']),
-                int(data['EBITDA']),
-                float(data['PERatio']),
-                float(data['PEGRatio']),
-                float(data['BookValue']),
-                float(data['DividendPerShare']),
-                float(data['DividendYield']),
-                float(data['EPS']),
-                float(data['RevenuePerShareTTM']),
-                float(data['ProfitMargin']),
-                float(data['OperatingMarginTTM']),
-                float(data['ReturnOnAssetsTTM']),
-                float(data['ReturnOnEquityTTM']),
-                int(data['RevenueTTM']),
-                int(data['GrossProfitTTM']),
-                float(data['DilutedEPSTTM']),
-                float(data['QuarterlyEarningsGrowthYOY']),
-                float(data['QuarterlyRevenueGrowthYOY']),
-                float(data['AnalystTargetPrice']),
-                float(data['TrailingPE']),
-                float(data['ForwardPE']),
-                float(data['PriceToSalesRatioTTM']),
-                float(data['PriceToBookRatio']),
-                float(data['EVToRevenue']),
-                float(data['EVToEBITDA']),
-                float(data['Beta']),
-                float(data['52WeekHigh']),
-                float(data['52WeekLow']),
-                float(data['50DayMovingAverage']),
-                float(data['200DayMovingAverage']),
-                int(data['SharesOutstanding']),
+                data['MarketCapitalization'],
+                data['EBITDA'],
+                data['PERatio'],
+                data['PEGRatio'],
+                data['BookValue'],
+                data['DividendPerShare'],
+                data['DividendYield'],
+                data['EPS'],
+                data['RevenuePerShareTTM'],
+                data['ProfitMargin'],
+                data['OperatingMarginTTM'],
+                data['ReturnOnAssetsTTM'],
+                data['ReturnOnEquityTTM'],
+                data['RevenueTTM'],
+                data['GrossProfitTTM'],
+                data['DilutedEPSTTM'],
+                data['QuarterlyEarningsGrowthYOY'],
+                data['QuarterlyRevenueGrowthYOY'],
+                data['AnalystTargetPrice'],
+                data['TrailingPE'],
+                data['ForwardPE'],
+                data['PriceToSalesRatioTTM'],
+                data['PriceToBookRatio'],
+                data['EVToRevenue'],
+                data['EVToEBITDA'],
+                data['Beta'],
+                data['52WeekHigh'],
+                data['52WeekLow'],
+                data['50DayMovingAverage'],
+                data['200DayMovingAverage'],
+                data['SharesOutstanding'],
                 data['DividendDate'],
                 data['ExDividendDate'],
                 current_date,
