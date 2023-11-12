@@ -52,13 +52,13 @@ CREATE TABLE stock_data(
   
   CREATE TABLE stock_share_prices(
   `stock_id` INT NOT NULL,
-  `trading_date` DATE NOT NULL,
+  `time` DATE NOT NULL,
   `open` DOUBLE NOT NULL,
   `high` DOUBLE NOT NULL,
   `low` DOUBLE NOT NULL,
   `close` DOUBLE NOT NULL,
   `volume` DOUBLE NOT NULL,
-  PRIMARY KEY (`stock_id`, `trading_date`),
+  PRIMARY KEY (`stock_id`, `time`),
   CONSTRAINT `ssp_sd`
     FOREIGN KEY (`stock_id`)
     REFERENCES `stock_data` (`stock_id`)
