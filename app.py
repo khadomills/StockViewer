@@ -1,6 +1,7 @@
 import sqlite3
 
 from flask import Flask, render_template
+from StockDataRetriever import StockDataRetriever
 
 app = Flask(__name__)
 
@@ -35,6 +36,18 @@ def index():
     conn = get_db_connection()
     stock_data = conn.execute('SELECT * from stock_data').fetchall()
     return render_template('index.html', stock_data=stock_data)
+
+
+@app.route('/testoverviewgrabber')
+def testoverviewgrabber():
+    api_grabber = StockDataRetriever()
+    api_grabber.fetch_overview_data()
+
+
+@app.route('/testhistoricalgrabber')
+def testhistoricalgrabber():
+    api_grabber = StockDataRetriever()
+    api_grabber.fetch_historical_data()
 
 
 if __name__ == '__main__':
