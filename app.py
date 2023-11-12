@@ -43,7 +43,7 @@ def testoverviewgrabber():
     api_grabber = StockDataRetriever()
     api_grabber.fetch_overview_data()
 
-    return redirect(url_for('home'))
+    return redirect(url_for('index'))
 
 
 @app.route('/testhistoricalgrabber')
@@ -51,6 +51,9 @@ def testhistoricalgrabber():
     api_grabber = StockDataRetriever()
     api_grabber.fetch_historical_data()
 
+@app.route('/redirecttest')
+def redirecttest():
+    return redirect(url_for('index'))
 
 if __name__ == '__main__':
     app.run(debug=True)
