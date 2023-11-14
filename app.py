@@ -104,7 +104,6 @@ def renderTMUSpage():
 def renderUBERpage():
     return render_template('template.html', stock=grabstockdata(13))
 
-
 @app.route('/VZ')
 def renderVZpage():
     return render_template('template.html', stock=grabstockdata(14))

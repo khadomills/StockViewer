@@ -1,5 +1,6 @@
 DROP TABLE IF EXISTS stock_data;
 DROP TABLE IF EXISTS stock_share_prices;
+DROP TABLE IF EXISTS company_info;
 
 CREATE TABLE stock_data(
   `stock_id` INT NOT NULL,
