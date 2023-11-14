@@ -51,6 +51,8 @@ def testhistoricalgrabber():
     api_grabber = StockDataRetriever()
     api_grabber.fetch_historical_data()
 
+    return redirect(url_for('index'))
+
 @app.route('/redirecttest')
 def redirecttest():
     return redirect(url_for('index'))

@@ -50,13 +50,49 @@ class StockDataRetriever:
             # Make the API request
             response = requests.get(url, headers=headers, params=querystring)
 
+            # Connect to DB
+            conn = sqlite3.connect('database.db')
+            cursor = conn.cursor()
+
             # Process the data as needed (e.g., print or store in a database)
             data = response.json()
-            print(data)
+            # print(data)
 
+            # Iterate over each date in the API response
+            for date, values in data['Time Series (Daily)'].items():
+                # Convert the date to the required format
+                date_formatted = date
 
+                # Check if the date already exists in the database
+                cursor.execute("SELECT COUNT(*) FROM stock_share_prices WHERE stock_id = ? AND time = ?",
+                               (stock_id, date_formatted))
+                count = cursor.fetchone()[0]
 
+                # if count is 0, add share price data from that date into db
+                if count == 0:
 
+                    # Insert data into the 'stock_share_prices' table
+                    cursor.execute('''
+                                        INSERT INTO stock_share_prices (
+                                            stock_id, time, open, high, low, close, volume
+                                        ) VALUES (?, ?, ?, ?, ?, ?, ?);
+                                    ''', (
+                        stock_id,
+                        date_formatted,
+                        float(values['1. open']),
+                        float(values['2. high']),
+                        float(values['3. low']),
+                        float(values['4. close']),
+                        float(values['5. volume']),
+                    ))
+
+                # Data is up-to-date, return
+                else:
+                    return
+
+            # Commit the changes and close the connection
+            conn.commit()
+            conn.close()
             # Print a message indicating that data has been fetched
             print(f'Fetched Historical Share Data for {company} ({symbol})')
 
@@ -88,7 +124,7 @@ class StockDataRetriever:
 
             # Process the data as needed (e.g., print or store in a database)
             data = response.json()
-            print(data)
+            # print(data)
 
             # Connect to SQLite database
             conn = sqlite3.connect('database.db')
