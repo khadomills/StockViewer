@@ -12,6 +12,7 @@ def get_db_connection():
     return conn
 
 
+
 # Define the route for the homepage
 @app.route('/')
 def homepage():
@@ -56,6 +57,10 @@ def testhistoricalgrabber():
 @app.route('/redirecttest')
 def redirecttest():
     return redirect(url_for('index'))
+
+@app.route('/graph.html')
+def graph():
+        return render_template('graph.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
