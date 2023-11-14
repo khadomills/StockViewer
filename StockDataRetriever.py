@@ -44,6 +44,7 @@ class StockDataRetriever:
 
         # Loop through each stock and fetch historical data
         for company, symbol in self.stocks.items():
+
             # Query parameters for the API request
             querystring = {"function": "TIME_SERIES_DAILY", "symbol": symbol, "outputsize": "full", "datatype": "json"}
 
@@ -88,7 +89,8 @@ class StockDataRetriever:
 
                 # Data is up-to-date, return
                 else:
-                    return
+                    print(f'Historical share price data now up to date for {company} ({symbol})')
+                    break;
 
             # Commit the changes and close the connection
             conn.commit()
