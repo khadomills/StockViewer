@@ -5,14 +5,10 @@ from StockDataRetriever import StockDataRetriever
 
 app = Flask(__name__)
 
-# current stock page
-stock_id = 0
-
 def get_db_connection():
     conn = sqlite3.connect('database.db')
     conn.row_factory = sqlite3.Row
     return conn
-
 
 
 # Define the route for the homepage
@@ -64,57 +60,60 @@ def redirecttest():
 def graph():
         return render_template('graph.html')
 
+# Company detail pages
 @app.route('/AMZN')
 def renderAMZNpage():
-    return render_template('detailedstock.html', stock=grabstockdata(0))
+    return render_template('template.html', stock=grabstockdata(0))
 @app.route('/AAPL')
 def renderAAPLpage():
-    return render_template('detailedstock.html', stock=grabstockdata(1))
+    return render_template('template.html', stock=grabstockdata(1))
 @app.route('/DELL')
 def renderDELLpage():
-    return render_template('detailedstock.html', stock=grabstockdata(2))
+    return render_template('template.html', stock=grabstockdata(2))
 @app.route('/GME')
 def renderGMEpage():
-    return render_template('detailedstock.html', stock=grabstockdata(3))
+    return render_template('template.html', stock=grabstockdata(3))
 @app.route('/GOOGL')
 def renderGOOGLpage():
-    return render_template('detailedstock.html', stock=grabstockdata(4))
+    return render_template('template.html', stock=grabstockdata(4))
 @app.route('/HPQ')
 def renderHPQpage():
-    return render_template('detailedstock.html', stock=grabstockdata(5))
+    return render_template('template.html', stock=grabstockdata(5))
 @app.route('/INTC')
 def renderINTCpage():
-    return render_template('detailedstock.html', stock=grabstockdata(6))
+    return render_template('template.html', stock=grabstockdata(6))
 @app.route('/LYFT')
 def renderLYFTpage():
-    return render_template('detailedstock.html', stock=grabstockdata(7))
+    return render_template('template.html', stock=grabstockdata(7))
 @app.route('/MSFT')
 def renderMSFTpage():
-    return render_template('detailedstock.html', stock=grabstockdata(8))
+    return render_template('template.html', stock=grabstockdata(8))
 @app.route('/NFLX')
 def renderNFLXpage():
-    return render_template('detailedstock.html', stock=grabstockdata(9))
+    return render_template('template.html', stock=grabstockdata(9))
 @app.route('/NVDA')
 def renderNVDApage():
-    return render_template('detailedstock.html', stock=grabstockdata(10))
+    return render_template('template.html', stock=grabstockdata(10))
 @app.route('/TSLA')
 def renderTSLApage():
-    return render_template('detailedstock.html', stock=grabstockdata(11))
+    return render_template('template.html', stock=grabstockdata(11))
 @app.route('/TMUS')
 def renderTMUSpage():
-    return render_template('detailedstock.html', stock=grabstockdata(12))
+    return render_template('template.html', stock=grabstockdata(12))
 @app.route('/UBER')
 def renderUBERpage():
-    return render_template('detailedstock.html', stock=grabstockdata(13))
+    return render_template('template.html', stock=grabstockdata(13))
+
+
 @app.route('/VZ')
 def renderVZpage():
-    return render_template('detailedstock.html', stock=grabstockdata(14))
+    return render_template('template.html', stock=grabstockdata(14))
 
 # Template for rendering detailed stock pages given parameter stock_id
 def grabstockdata(uStock_id):
     conn = get_db_connection()
     cursor = conn.cursor()
-    cursor.execute('SELECT * from stock_data WHERE stock_id = ' + str(uStock_id))
+    cursor.execute('SELECT * FROM stock_data INNER JOIN company_info ON stock_data.stock_id = company_info.stock_id WHERE stock_data.stock_id = ' + str(uStock_id))
     stock = cursor.fetchone()
     return stock
 

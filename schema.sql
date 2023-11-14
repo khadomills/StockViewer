@@ -64,3 +64,17 @@ CREATE TABLE stock_data(
     REFERENCES `stock_data` (`stock_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
+
+    CREATE TABLE company_info(
+    `stock_id` INT NOT NULL,
+    'ceo' VARCHAR(50) NOT NULL,
+    'website' VARCHAR(200) NOT NULL,
+    'employees' VARCHAR(10) NOT NULL,
+    'founded_year' VARCHAR(4) NOT NULL,
+    'isin' VARCHAR(12) NOT NULL,
+    PRIMARY KEY (`stock_id`),
+    CONSTRAINT `ci_sd`
+      FOREIGN KEY (`stock_id`)
+      REFERENCES `stock_data` (`stock_id`)
+      ON DELETE NO ACTION
+      ON UPDATE NO ACTION);

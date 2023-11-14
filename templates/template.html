@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ stock['name'] }}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel = "stylesheet" href = "{{url_for('static', filename='/style.css')}}">
+    <script
+      type="text/javascript"
+      src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"
+    ></script>
+</head>
+<body>
+    <nav class="navbar bg-body-tertiary fixed-top">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">
+            <img src="{{url_for('static', filename='/Image/clogo.png')}}" width = "30" height = "30"></a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+            <div class="offcanvas-header">
+              <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Group C Stocks</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+              <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="#">Home</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">About Us</a>
+                </li>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Company Stocks
+                  </a>
+                  <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#">Tesla Inc [TSLA] <img src="img/teslalogo.jpg" width="30" height="30"></a></li>
+                    <li><a class="dropdown-item" href="#">Amazon [AMZN]</a></li>
+                    <li><a class="dropdown-item" href="#">Meta</a></li>
+                    <li><a class="dropdown-item" href="#">Apple</a></li>
+                    <li><a class="dropdown-item" href="#">Microsoft</a></li>
+                    <li><a class="dropdown-item" href="#">Netflix</a></li>
+                    <li><a class="dropdown-item" href="#">Intel</a></li>
+                    <li>
+                      <hr class="dropdown-divider">
+                    </li>
+                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                  </ul>
+                </li>
+              </ul>
+              <form class="d-flex mt-3" role="search">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+    <!-- HEADER IMAGE SECTION* -->
+      <div class="container">
+        <div class="header">
+            <img src="{{url_for('static', filename='/Image/stocks.jpg')}}" alt="Logo" class="logo">
+            <div class="text">
+              <h1>{{ stock['name'] }}</h1>
+              <p>{{ stock['symbol'] }} • NASDAQ</p>
+          </div>
+
+            <!--
+            <div class="icons">-->
+                <!-- Replace # with actual icons
+                <span>#</span>
+                <span>#</span>
+                <span>#</span>
+            </div>
+            <button>See on Supercharts</button>-->
+        </div>
+
+        <!--<div class="stock-info">
+            <h2>168.22 USD</h2>
+            <span>+1.33 +0.80%</span>
+            <p>Last update at Oct 27, 19:59 EDT</p>
+        </div>
+        <div class="tabs">
+            <button class="active">Overview</button>
+            <button>Timeline</button>
+            <button>News</button>
+            <button>Ideas</button>
+            <button>Financials</button>
+            <button>Technicals</button>
+            <button>Forecast</button>
+        </div>
+        <div class="chart">
+            <h3>AAPL chart</h3>
+        </div>
+        <div class="footer-icons">-->
+            <!-- Replace # with actual icons
+            <span>#</span>
+            <span>#</span>
+            <span>#</span>
+            <span>#</span>
+            <span>#</span>
+        </div>-->
+
+    </div>
+
+
+
+
+
+    <!-- Adding the standalone version of Lightweight charts -->
+
+
+
+    <script type="text/javascript">
+
+        // Function to generate a sample set of Candlestick datapoints
+      function generateCandlestickData() {
+        return [
+          {
+            time: "2018-10-19",
+            open: 180.34,
+            high: 180.99,
+            low: 178.57,
+            close: 179.85,
+          },
+          {
+            time: "2018-10-22",
+            open: 180.82,
+            high: 181.4,
+            low: 177.56,
+            close: 178.75,
+          },
+          {
+            time: "2018-10-23",
+            open: 175.77,
+            high: 179.49,
+            low: 175.44,
+            close: 178.53,
+          },
+          {
+            time: "2018-10-24",
+            open: 178.58,
+            high: 182.37,
+            low: 176.31,
+            close: 176.97,
+          },
+          {
+            time: "2018-10-25",
+            open: 177.52,
+            high: 180.5,
+            low: 176.83,
+            close: 179.07,
+          },
+          {
+            time: "2018-10-26",
+            open: 176.88,
+            high: 177.34,
+            low: 170.91,
+            close: 172.23,
+          },
+          {
+            time: "2018-10-29",
+            open: 173.74,
+            high: 175.99,
+            low: 170.95,
+            close: 173.2,
+          },
+          {
+            time: "2018-10-30",
+            open: 173.16,
+            high: 176.43,
+            low: 172.64,
+            close: 176.24,
+          },
+          {
+            time: "2018-10-31",
+            open: 177.98,
+            high: 178.85,
+            low: 175.59,
+            close: 175.88,
+          },
+          {
+            time: "2018-11-01",
+            open: 176.84,
+            high: 180.86,
+            low: 175.9,
+            close: 180.46,
+          },
+        ];
+      }
+
+        const chart = LightweightCharts.createChart(
+            document.getElementById("container1")
+        );
+
+        //create candleStickData
+        const candleStickData = generateCandlestickData(); //replace this function with however you're staging data from the DB
+
+        // Create the Main Series (Candlesticks)
+        const mainSeries = chart.addCandlestickSeries();
+
+        // Set the data for the Main Series
+        mainSeries.setData(candleStickData);
+
+        // resize graph if window changes
+        window.addEventListener('resize', () => {
+            chart.resize(window.innerWidth, window.innerHeight);
+        });
+
+    </script>
+
+
+
+    
+    
+<!-- Key stats section -->
+<div class="key-stats">
+    <h2>Key stats</h2>
+    <div class="stats-grid">
+        <div><span>Market capitalization</span>{{ stock['market_capitalization'] }}</div>
+        <div><span>Dividends yield (FY)</span>{{ stock['div_yield'] }}</div>
+        <div><span>Price to earnings Ratio (TTM)</span>{{ stock['PERatio'] }}</div>
+        <div><span>Basic EPS (TTM)</span>{{ stock['EPS'] }}</div>
+        <div><span>Net income</span>{{ stock['fiscal_year_end'] }}</div>
+        <div><span>Revenue</span>{{ stock['revenueTTM'] }}</div>
+        <div><span>Shares float</span>{{ stock['shares_outstanding'] }}</div>
+        <div><span>Beta</span>{{ stock['beta'] }}</div>
+    </div>
+</div>
+
+<!-- About Section -->
+<div class="about">
+    <h2>About {{ stock['name'] }}</h2>
+    <div class="info-grid">
+        <div><span>Sector</span>{{ stock['sector'] }}</div>
+        <div><span>Industry</span>{{ stock['industry'] }}</div>
+        <div><span>CEO</span>{{ stock['ceo'] }}</div>
+        <div><span>Website</span><a href="{{ stock['website'] }}" target="">{{ stock['website'] }}</a></div>
+        <div><span>Headquarters</span>{{ stock['address'] }}</div>
+        <div><span>Employees</span>{{ stock['employees'] }}</div>
+        <div><span>Founded</span>{{ stock['founded_year'] }}</div>
+        <div><span>ISIN</span>{{ stock['isin'] }}</div>
+    </div>
+</div>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>  
+</body>
+
+<!-- Advanced Section -->
+<div class="about">
+  <h2>Advanced Information</h2>
+  <div class="info-grid">
+      <div><span>Stock ID: </span>{{ stock['stock_id'] }}</div>
+      <div><span>Symbol: </span>{{ stock['symbol'] }}</div>
+      <div><span>Name: </span>{{ stock['name'] }}</div>
+      <div><span>Description: </span>{{ stock['desc'] }}</div>
+      <div><span>Central Index Key: </span>{{ stock['CIK'] }}</div>
+      <div><span>Currency: </span>{{ stock['currency'] }}</div>
+      <div><span>Country: </span>{{ stock['country'] }}</div>
+      <div><span>Sector: </span>{{ stock['sector'] }}</div>
+      <div><span>Industry: </span>{{ stock['industry'] }}</div>
+      <div><span>Address: </span>{{ stock['address'] }}</div>
+      <div><span>Fiscal Year End: </span>{{ stock['fiscal_year_end'] }}</div>
+      <div><span>Latest Quarter: </span>{{ stock['latest_qtr'] }}</div>
+      <div><span>Market Capitalization: </span>{{ stock['market_capitalization'] }}</div>
+      <div><span>EBITDA: </span>{{ stock['EBITDA'] }}</div>
+      <div><span>Price Earnings Ratio: </span>{{ stock['PERatio'] }}</div>
+      <div><span>Performance Ratio: </span>{{ stock['PEGRatio'] }}</div>
+      <div><span>Book Value: </span>{{ stock['book_value'] }}</div>
+      <div><span>Dividend Per Share: </span>{{ stock['div_per_share'] }}</div>
+      <div><span>Dividend Yield: </span>{{ stock['div_yield'] }}</div>
+      <div><span>EPS: </span>{{ stock['EPS'] }}</div>
+      <div><span>Revenue Per Share: </span>{{ stock['rev_per_shareTTM'] }}</div>
+      <div><span>Profit Margin: </span>{{ stock['profit_margin'] }}</div>
+      <div><span>Operating Margin (TTM): </span>{{ stock['op_marginTTM'] }}</div>
+      <div><span>Return on Assets (TTM): </span>{{ stock['return_on_assetsTTM'] }}</div>
+      <div><span>Return on Equity (TTM): </span>{{ stock['return_on_equityTTM'] }}</div>
+      <div><span>Revenue (TTM): </span>{{ stock['revenueTTM'] }}</div>
+      <div><span>Gross Profit (TTM): </span>{{ stock['gross_profitTTM'] }}</div>
+      <div><span>Diluted Earnings Per Share (TTM): </span>{{ stock['dilutedEPSTTM'] }}</div>
+      <div><span>Quarterly Earnings Growth (YOY): </span>{{ stock['qtrly_earnings_growthYOY'] }}</div>
+      <div><span>Quarterly Revenue Growth (YOY): </span>{{ stock['qtrly_revenue_growthYOY'] }}</div>
+      <div><span>Analyst Target Price: </span>{{ stock['analyst_target_price'] }}</div>
+      <div><span>Trailing PE: </span>{{ stock['trailingPE'] }}</div>
+      <div><span>Forward PE: </span>{{ stock['forwardPE'] }}</div>
+      <div><span>Price to Sales Ratio (TTM): </span>{{ stock['price_to_sales_ratioTTM'] }}</div>
+      <div><span>Price to Book Ratio: </span>{{ stock['price_to_book_ratio'] }}</div>
+      <div><span>EV to Revenue: </span>{{ stock['EV_to_revenue'] }}</div>
+      <div><span>EV to EBITDA: </span>{{ stock['EV_to_EBITDA'] }}</div>
+      <div><span>Beta: </span>{{ stock['beta'] }}</div>
+      <div><span>Week High (52): </span>{{ stock['week_high_52'] }}</div>
+      <div><span>Week Low (52): </span>{{ stock['week_low_52'] }}</div>
+      <div><span>Day Morning Average (50): </span>{{ stock['day_moving_average_50'] }}</div>
+      <div><span>Day Morning Average (200): </span>{{ stock['day_moving_average_200'] }}</div>
+      <div><span>Shares Outstanding: </span>{{ stock['shares_outstanding'] }}</div>
+      <div><span>Dividend Date: </span>{{ stock['div_date'] }}</div>
+      <div><span>Ex-Dividend: </span>{{ stock['ex_div_date'] }}</div>
+      <div><span>Last Updated: </span>{{ stock['last_updated'] }}</div>
+      
+  </div>
+</div>
+
+
+</html>
