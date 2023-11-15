@@ -65,7 +65,6 @@ def fetchhistoricaldata():
     return redirect(url_for('index'))
 
 
-
 @app.route('/graph.html')
 def graph():
     return render_template('graph.html')
@@ -146,11 +145,12 @@ def renderUBERpage():
 def renderVZpage():
     return render_template('template.html', stock=grabstockdata(14))
 
+
 # Helper function to return company overview data from database
-def grabstockdata(uStock_id):
+def grabstockdata(input_stock_id):
     conn = get_db_connection()
     cursor = conn.cursor()
-    cursor.execute('SELECT * FROM stock_data INNER JOIN company_info ON stock_data.stock_id = company_info.stock_id WHERE stock_data.stock_id = ' + str(uStock_id))
+    cursor.execute('SELECT * FROM stock_data INNER JOIN company_info ON stock_data.stock_id = company_info.stock_id WHERE stock_data.stock_id = ' + str(input_stock_id))
     stock = cursor.fetchone()
     return stock
 
