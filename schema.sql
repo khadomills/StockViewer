@@ -2,6 +2,7 @@ DROP TABLE IF EXISTS stock_data;
 DROP TABLE IF EXISTS stock_share_prices;
 DROP TABLE IF EXISTS company_info;
 
+
 CREATE TABLE stock_data(
   `stock_id` INT NOT NULL,
   `symbol` VARCHAR(45) NOT NULL,
@@ -70,8 +71,9 @@ CREATE TABLE stock_data(
     `stock_id` INT NOT NULL,
     'ceo' VARCHAR(50) NOT NULL,
     'website' VARCHAR(200) NOT NULL,
-    'employees' VARCHAR(10) NOT NULL,
-    'founded_year' VARCHAR(4) NOT NULL,
+    'headquarters' VARCHAR(30) NOT NULL,
+    'employees' VARCHAR(20) NOT NULL,
+    'founded_year' VARCHAR(50) NOT NULL,
     'isin' VARCHAR(12) NOT NULL,
     PRIMARY KEY (`stock_id`),
     CONSTRAINT `ci_sd`

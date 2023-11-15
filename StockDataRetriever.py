@@ -149,8 +149,6 @@ class StockDataRetriever:
             # Get the current date for 'last_updated'
             current_date = datetime.now().strftime('%Y-%m-%d')
 
-
-
             # Execute the query
             cursor.execute(query, (
                 stock_id,
