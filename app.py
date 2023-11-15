@@ -20,10 +20,10 @@ def homepage():
     return 'Welcome to the homepage!'
 
 
-# Define the route for the about page
+# Define the route for the about us page
 @app.route('/about')
 def about():
-    return 'This is the about page.'
+    return render_template('about.html')
 
 
 # Define the route for the stock info page
