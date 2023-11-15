@@ -14,26 +14,14 @@ def get_db_connection():
     return conn
 
 
-# Define the route for the homepage
-@app.route('/')
-def homepage():
-    return 'Welcome to the homepage!'
-
-
 # Define the route for the about us page
 @app.route('/about')
 def about():
     return render_template('about.html')
 
 
-# Define the route for the stock info page
-@app.route('/stock')
-def stock_info():
-    return 'Stock information page.'
-
-
-# define the route for the temporary stock index page
-@app.route('/index')
+# Define the route for the temporary stock index page
+@app.route('/index') # Needs to be updated to homepage
 def index():
     conn = get_db_connection()
     stock_data = conn.execute('SELECT * from stock_data').fetchall()
@@ -46,7 +34,7 @@ def fetchalldata():
     api_grabber = StockDataRetriever()
     api_grabber.fetch_overview_data()
     api_grabber.fetch_historical_data()
-    return redirect(url_for('index'))
+    return redirect(url_for('about'))
 
 
 # Define endpoint route for fetching company overview data, load into DB, and redirect to homepage
@@ -54,7 +42,7 @@ def fetchalldata():
 def fetchoverviewdata():
     api_grabber = StockDataRetriever()
     api_grabber.fetch_overview_data()
-    return redirect(url_for('index'))
+    return redirect(url_for('about'))
 
 
 # Define endpoint route for fetching historical share data, load into DB, and redirect to homepage
@@ -62,7 +50,7 @@ def fetchoverviewdata():
 def fetchhistoricaldata():
     api_grabber = StockDataRetriever()
     api_grabber.fetch_historical_data()
-    return redirect(url_for('index'))
+    return redirect(url_for('about'))
 
 
 @app.route('/graph.html')
