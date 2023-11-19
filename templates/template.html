@@ -1179,13 +1179,13 @@
 <div class="key-stats">
     <h2>Key stats</h2>
     <div class="stats-grid">
-        <div><span>Market capitalization</span>{{ stock['market_capitalization'] }}</div>
+        <div><span>Market capitalization</span>${{ "{:,.0f}".format(stock['market_capitalization']|int) }}</div>
         <div><span>Dividends yield (FY)</span>{{ stock['div_yield'] }}</div>
         <div><span>Price to earnings Ratio (TTM)</span>{{ stock['PERatio'] }}</div>
         <div><span>Basic EPS (TTM)</span>{{ stock['EPS'] }}</div>
         <div><span>Net income</span>{{ stock['fiscal_year_end'] }}</div>
-        <div><span>Revenue</span>{{ stock['revenueTTM'] }}</div>
-        <div><span>Shares float</span>{{ stock['shares_outstanding'] }}</div>
+        <div><span>Revenue</span>${{ "{:,.0f}".format(stock['revenueTTM']|int) }}</div>
+        <div><span>Shares float</span>{{ "{:,.0f}".format(stock['shares_outstanding']|int) }}</div>
         <div><span>Beta</span>{{ stock['beta'] }}</div>
     </div>
 </div>
@@ -1223,8 +1223,8 @@
       <div><span>Address: </span>{{ stock['address'] }}</div>
       <div><span>Fiscal Year End: </span>{{ stock['fiscal_year_end'] }}</div>
       <div><span>Latest Quarter: </span>{{ stock['latest_qtr'] }}</div>
-      <div><span>Market Capitalization: </span>{{ stock['market_capitalization'] }}</div>
-      <div><span>EBITDA: </span>{{ stock['EBITDA'] }}</div>
+      <div><span>Market Capitalization: </span>${{ "{:,.0f}".format(stock['market_capitalization']|int) }}</div>
+      <div><span>EBITDA: </span>${{ "{:,.0f}".format(stock['EBITDA']|int) }}</div>
       <div><span>Price Earnings Ratio: </span>{{ stock['PERatio'] }}</div>
       <div><span>Performance Ratio: </span>{{ stock['PEGRatio'] }}</div>
       <div><span>Book Value: </span>{{ stock['book_value'] }}</div>
@@ -1236,8 +1236,8 @@
       <div><span>Operating Margin (TTM): </span>{{ stock['op_marginTTM'] }}</div>
       <div><span>Return on Assets (TTM): </span>{{ stock['return_on_assetsTTM'] }}</div>
       <div><span>Return on Equity (TTM): </span>{{ stock['return_on_equityTTM'] }}</div>
-      <div><span>Revenue (TTM): </span>{{ stock['revenueTTM'] }}</div>
-      <div><span>Gross Profit (TTM): </span>{{ stock['gross_profitTTM'] }}</div>
+      <div><span>Revenue (TTM): </span>${{ "{:,.0f}".format(stock['revenueTTM']|int) }}</div>
+      <div><span>Gross Profit (TTM): </span>${{ "{:,.0f}".format(stock['gross_profitTTM']|int) }}</div>
       <div><span>Diluted Earnings Per Share (TTM): </span>{{ stock['dilutedEPSTTM'] }}</div>
       <div><span>Quarterly Earnings Growth (YOY): </span>{{ stock['qtrly_earnings_growthYOY'] }}</div>
       <div><span>Quarterly Revenue Growth (YOY): </span>{{ stock['qtrly_revenue_growthYOY'] }}</div>
@@ -1249,11 +1249,11 @@
       <div><span>EV to Revenue: </span>{{ stock['EV_to_revenue'] }}</div>
       <div><span>EV to EBITDA: </span>{{ stock['EV_to_EBITDA'] }}</div>
       <div><span>Beta: </span>{{ stock['beta'] }}</div>
-      <div><span>Week High (52): </span>{{ stock['week_high_52'] }}</div>
-      <div><span>Week Low (52): </span>{{ stock['week_low_52'] }}</div>
-      <div><span>Day Morning Average (50): </span>{{ stock['day_moving_average_50'] }}</div>
-      <div><span>Day Morning Average (200): </span>{{ stock['day_moving_average_200'] }}</div>
-      <div><span>Shares Outstanding: </span>{{ stock['shares_outstanding'] }}</div>
+      <div><span>52 Week High: </span>${{ "{:.2f}".format(stock['week_high_52']|float) }}</div>
+      <div><span>52 Week Low: </span>${{ "{:.2f}".format(stock['week_low_52']|float) }}</div>
+      <div><span>50 Day Morning Average: </span>${{ "{:.2f}".format(stock['day_moving_average_50']|float) }}</div>
+      <div><span>200 Day Morning Average: </span>${{ "{:.2f}".format(stock['day_moving_average_200']|float) }}</div>
+      <div><span>Shares Outstanding: </span>{{ "{:,.0f}".format(stock['shares_outstanding']|int) }}</div>
       <div><span>Dividend Date: </span>{{ stock['div_date'] }}</div>
       <div><span>Ex-Dividend: </span>{{ stock['ex_div_date'] }}</div>
       <div><span>Last Updated: </span>{{ stock['last_updated'] }}</div>

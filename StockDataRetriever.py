@@ -90,7 +90,7 @@ class StockDataRetriever:
                 # Data is up-to-date, return
                 else:
                     print(f'Historical share price data now up to date for {company} ({symbol})')
-                    break;
+                    break
 
             # Commit the changes and close the connection
             conn.commit()

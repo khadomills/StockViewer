@@ -23,6 +23,22 @@
                 </div>
             {% endfor %}
         </section>
+    <div>
+        <h2> Amazon date: {{ share_price_data[0]['time'] }}</h2>
+        <h2> Amazon open: ${{ "{:.2f}".format(share_price_data[0]['open']) }}</h2>
+        <h2> Amazon high: ${{ "{:.2f}".format(share_price_data[0]['high']) }}</h2>
+        <h2> Amazon low: ${{ "{:.2f}".format(share_price_data[0]['low']) }}</h2>
+        <h2> Amazon close: ${{ "{:.2f}".format(share_price_data[0]['close']) }}</h2>
+        <h2> Amazon volume: {{ "{:,.0f}".format(share_price_data[0]['volume']) }}</h2>
+        <h2> Apple date: {{ share_price_data[1]['time'] }}</h2>
+        <h2> Apple open: ${{ "{:.2f}".format(share_price_data[1]['open']) }}</h2>
+        <h2> Apple high: ${{ "{:.2f}".format(share_price_data[1]['high']) }}</h2>
+        <h2> Apple low: ${{ "{:.2f}".format(share_price_data[1]['low']) }}</h2>
+        <h2> Apple close: ${{ "{:.2f}".format(share_price_data[1]['close']) }}</h2>
+        <h2> Apple volume: {{ "{:,.0f}".format(share_price_data[1]['volume']) }}</h2>
+
+
+    </div>
     </main>
 
     <footer>

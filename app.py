@@ -3,6 +3,7 @@ import sqlite3
 from flask import Flask, render_template, redirect, url_for
 from StockDataRetriever import StockDataRetriever
 
+
 # Create flask application object
 app = Flask(__name__)
 
@@ -21,11 +22,11 @@ def about():
 
 
 # Define the route for the temporary stock index page
-@app.route('/index') # Needs to be updated to homepage
+@app.route('/index')  # Needs to be updated to homepage
 def index():
-    conn = get_db_connection()
-    stock_data = conn.execute('SELECT * from stock_data').fetchall()
-    return render_template('index.html', stock_data=stock_data)
+
+    # Render page
+    return render_template('index.html', share_price_data=grabpricedata())
 
 
 # Define endpoint route for fetching all stock data, load into DB, and redirect to homepage
@@ -134,13 +135,34 @@ def renderVZpage():
     return render_template('template.html', stock=grabstockdata(14))
 
 
-# Helper function to return company overview data from database
+# Helper function to return company overview / info data from database
 def grabstockdata(input_stock_id):
+
+    # Get connection and create cursos
     conn = get_db_connection()
     cursor = conn.cursor()
+
+    # execute query and return tuple
     cursor.execute('SELECT * FROM stock_data INNER JOIN company_info ON stock_data.stock_id = company_info.stock_id WHERE stock_data.stock_id = ' + str(input_stock_id))
     stock = cursor.fetchone()
     return stock
+
+def grabpricedata():
+
+    # Get connection and create cursor
+    conn = get_db_connection()
+    cursor = conn.cursor()
+
+    # Fetch the last loaded share price date
+    cursor.execute('SELECT MAX(time) from stock_share_prices')
+    last_update = cursor.fetchone()[0]
+
+    # Fetch share price data for given date
+    cursor.execute('SELECT * from stock_share_prices WHERE time = \'' + last_update + '\'')
+    share_price_data = cursor.fetchall()
+
+    # Return tuple
+    return share_price_data
 
 
 # Run the flask application server
