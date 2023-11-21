@@ -3,7 +3,6 @@ import sqlite3
 from flask import Flask, render_template, redirect, url_for
 from StockDataRetriever import StockDataRetriever
 
-
 # Create flask application object
 app = Flask(__name__)
 
@@ -24,7 +23,6 @@ def about():
 # Define the route for the temporary stock index page
 @app.route('/index')  # Needs to be updated to homepage
 def index():
-
     # Render page
     return render_template('index.html', share_price_data=grabpricedata())
 
@@ -135,20 +133,29 @@ def renderVZpage():
     return render_template('template.html', stock=grabstockdata(14))
 
 
+# Route for stock update button
+@app.route('/update_stock/<int:stock_id>/<string:symbol>')
+def update_stock(stock_id, symbol):
+    api_grabber = StockDataRetriever()
+    api_grabber.fetch_one_stock(stock_id, symbol)
+    return redirect(url_for('render' + symbol + 'page'))
+
+
 # Helper function to return company overview / info data from database
 def grabstockdata(input_stock_id):
-
-    # Get connection and create cursos
+    # Get connection and create cursor
     conn = get_db_connection()
     cursor = conn.cursor()
 
     # execute query and return tuple
-    cursor.execute('SELECT * FROM stock_data INNER JOIN company_info ON stock_data.stock_id = company_info.stock_id WHERE stock_data.stock_id = ' + str(input_stock_id))
+    cursor.execute(
+        'SELECT * FROM stock_data INNER JOIN company_info ON stock_data.stock_id = company_info.stock_id WHERE stock_data.stock_id = ' + str(
+            input_stock_id))
     stock = cursor.fetchone()
     return stock
 
-def grabpricedata():
 
+def grabpricedata():
     # Get connection and create cursor
     conn = get_db_connection()
     cursor = conn.cursor()
