@@ -17,7 +17,7 @@ def get_db_connection():
 # Define the route for the about us page
 @app.route('/about')
 def about():
-    return render_template('about.html')
+    return render_template('about.html', share_price_data=grabpricedata())
 
 
 # Define the route for the temporary stock index page
@@ -62,98 +62,98 @@ def graph():
 def renderAMZNpage():
     # Pull all stock data from DB and render detailed page template.
     data = grabstockdata(0)
-    return render_template('template.html', stock=data[0], share_data=data[1])
+    return render_template('template.html', stock=data[0], share_data=data[1], share_price_data=grabpricedata())
 
 
 @app.route('/AAPL')
 def renderAAPLpage():
     # Pull all stock data from DB and render detailed page template.
     data = grabstockdata(1)
-    return render_template('template.html', stock=data[0], share_data=data[1])
+    return render_template('template.html', stock=data[0], share_data=data[1], share_price_data=grabpricedata())
 
 
 @app.route('/DELL')
 def renderDELLpage():
     # Pull all stock data from DB and render detailed page template.
     data = grabstockdata(2)
-    return render_template('template.html', stock=data[0], share_data=data[1])
+    return render_template('template.html', stock=data[0], share_data=data[1], share_price_data=grabpricedata())
 
 
 @app.route('/GME')
 def renderGMEpage():
     # Pull all stock data from DB and render detailed page template.
     data = grabstockdata(3)
-    return render_template('template.html', stock=data[0], share_data=data[1])
+    return render_template('template.html', stock=data[0], share_data=data[1], share_price_data=grabpricedata())
 
 
 @app.route('/GOOGL')
 def renderGOOGLpage():
     # Pull all stock data from DB and render detailed page template.
     data = grabstockdata(4)
-    return render_template('template.html', stock=data[0], share_data=data[1])
+    return render_template('template.html', stock=data[0], share_data=data[1], share_price_data=grabpricedata())
 
 
 @app.route('/HPQ')
 def renderHPQpage():
     # Pull all stock data from DB and render detailed page template.
     data = grabstockdata(5)
-    return render_template('template.html', stock=data[0], share_data=data[1])
+    return render_template('template.html', stock=data[0], share_data=data[1], share_price_data=grabpricedata())
 
 
 @app.route('/INTC')
 def renderINTCpage():
     # Pull all stock data from DB and render detailed page template.
     data = grabstockdata(6)
-    return render_template('template.html', stock=data[0], share_data=data[1])
+    return render_template('template.html', stock=data[0], share_data=data[1], share_price_data=grabpricedata())
 
 
 @app.route('/LYFT')
 def renderLYFTpage():
     # Pull all stock data from DB and render detailed page template.
     data = grabstockdata(7)
-    return render_template('template.html', stock=data[0], share_data=data[1])
+    return render_template('template.html', stock=data[0], share_data=data[1], share_price_data=grabpricedata())
 
 
 @app.route('/MSFT')
 def renderMSFTpage():
     # Pull all stock data from DB and render detailed page template.
     data = grabstockdata(8)
-    return render_template('template.html', stock=data[0], share_data=data[1])
+    return render_template('template.html', stock=data[0], share_data=data[1], share_price_data=grabpricedata())
 
 
 @app.route('/NFLX')
 def renderNFLXpage():
     # Pull all stock data from DB and render detailed page template.
     data = grabstockdata(9)
-    return render_template('template.html', stock=data[0], share_data=data[1])
+    return render_template('template.html', stock=data[0], share_data=data[1], share_price_data=grabpricedata())
 
 
 @app.route('/NVDA')
 def renderNVDApage():
     # Pull all stock data from DB and render detailed page template.
     data = grabstockdata(10)
-    return render_template('template.html', stock=data[0], share_data=data[1])
+    return render_template('template.html', stock=data[0], share_data=data[1], share_price_data=grabpricedata())
 
 
 @app.route('/TSLA')
 def renderTSLApage():
     # Pull all stock data from DB and render detailed page template.
     data = grabstockdata(11)
-    return render_template('template.html', stock=data[0], share_data=data[1])
+    return render_template('template.html', stock=data[0], share_data=data[1], share_price_data=grabpricedata())
 
 
 @app.route('/TMUS')
 def renderTMUSpage():
     # Pull all stock data from DB and render detailed page template.
     data = grabstockdata(12)
-    return render_template('template.html', stock=data[0], share_data=data[1])
+    return render_template('template.html', stock=data[0], share_data=data[1], share_price_data=grabpricedata())
 
 
 @app.route('/UBER')
 def renderUBERpage():
     # Pull all stock data from DB and render detailed page template.
     data = grabstockdata(13)
-    return render_template('template.html', stock=data[0], share_data=data[1])
+    return render_template('template.html', stock=data[0], share_data=data[1], share_price_data=grabpricedata())
 
 
 @app.route('/VZ')
@@ -161,7 +161,7 @@ def renderVZpage():
 
     # Pull all stock data from DB and render detailed page template.
     data = grabstockdata(14)
-    return render_template('template.html', stock=data[0], share_data=data[1])
+    return render_template('template.html', stock=data[0], share_data=data[1], share_price_data=grabpricedata())
 
 
 # Route for stock update button

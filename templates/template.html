@@ -90,19 +90,83 @@
         {
         layout: {
             background: { color: '#222' },
-            textColor: '#DDD',
+            textColor: '#C3BCDB',
         },
         grid: {
             vertLines: { color: '#444' },
             horzLines: { color: '#444' },
         },
     })
+        // Get the current users primary locale
+        const currentLocale = window.navigator.languages[0];
+
+        // Create a number format using Intl.NumberFormat
+        const myPriceFormatter = Intl.NumberFormat(currentLocale, {
+            style: 'currency',
+            currency: 'USD', // Currency for data points
+        }).format;
+
+
+        // Setting the border color for the vertical axis
+        chart.priceScale().applyOptions({
+            borderColor: '#71649C',
+        });
+
+        // Setting the border color for the horizontal axis
+        chart.timeScale().applyOptions({
+            borderColor: '#71649C',
+            barSpacing: 10,
+        });
+
+        // Apply the custom priceFormatter to the chart
+        chart.applyOptions({
+            localization: {
+                priceFormatter: myPriceFormatter,
+            },
+        });
+
+        // Customizing the Crosshair
+        chart.applyOptions({
+            crosshair: {
+                // Change mode from default 'magnet' to 'normal'.
+                // Allows the crosshair to move freely without snapping to datapoints
+                mode: LightweightCharts.CrosshairMode.Normal,
+
+                // Vertical crosshair line (showing Date in Label)
+                vertLine: {
+                    width: 8,
+                    color: '#C3BCDB44',
+                    style: LightweightCharts.LineStyle.Solid,
+                    labelBackgroundColor: '#9B7DFF',
+                },
+
+                // Horizontal crosshair line (showing Price in Label)
+                horzLine: {
+                    color: '#9B7DFF',
+                    labelBackgroundColor: '#9B7DFF',
+                },
+            },
+        });
 
         //create candleStickData
-
         const candleStickData = {{ share_data | tojson | safe }}; //Error is not really an error lol
 
+        // Convert the candlestick data for use with a line series
+        const lineData = candleStickData.map(datapoint => ({
+            time: datapoint.time,
+            value: (datapoint.close + datapoint.open) / 2,
+        }));
 
+        // Add an area series to the chart to provide a gradient
+        const areaSeries = chart.addAreaSeries({
+            lastValueVisible: false, // hide the last value marker for this series
+            crosshairMarkerVisible: false, // hide the crosshair marker for this series
+            lineColor: 'transparent', // hide the line
+            topColor: 'rgba(56, 33, 110,0.6)',
+            bottomColor: 'rgba(56, 33, 110, 0.1)',
+        });
+        // Set the data for the Area Series
+        areaSeries.setData(lineData);
 
         // Create the Main Series (Candlesticks)
         const mainSeries = chart.addCandlestickSeries();
@@ -119,6 +183,40 @@
         // Set the data for the Main Series
         mainSeries.setData(candleStickData);
 
+        // Add max and min price lines
+        let minimumPrice = candleStickData[0].close;
+        let maximumPrice = minimumPrice;
+        for (let i = 1; i < candleStickData.length; i++) {
+            const price = candleStickData[i].close;
+            if (price > maximumPrice) {
+                maximumPrice = price;
+            }
+            if (price < minimumPrice) {
+                minimumPrice = price;
+            }
+        }
+        const lineWidth = 2;
+        const minPriceLine = {
+            price: minimumPrice,
+            color: '#ef5350',
+            lineWidth: lineWidth,
+            lineStyle: 2, // LineStyle.Dashed
+            axisLabelVisible: true,
+            title: 'min price',
+        };
+        const maxPriceLine = {
+            price: maximumPrice,
+            color: '#26a69a',
+            lineWidth: lineWidth,
+            lineStyle: 2, // LineStyle.Dashed
+            axisLabelVisible: true,
+            title: 'max price',
+        };
+
+        // render price lines
+        mainSeries.createPriceLine(minPriceLine);
+        mainSeries.createPriceLine(maxPriceLine);
+
         // resize graph when the window is resized
         window.addEventListener('resize', () => {
             const containerWidth = document.getElementById("container1").offsetWidth;
@@ -128,6 +226,15 @@
         // Initial resize when the page loads
         const containerWidth = document.getElementById("container1").offsetWidth;
         chart.resize(containerWidth, 600); // Set the height as needed
+
+        // Adjust the options for the priceScale of the mainSeries
+        mainSeries.priceScale().applyOptions({
+            autoScale: true, // enables auto-scaling based on visible content
+            scaleMargins: {
+                top: 0.1,
+                bottom: 0.2,
+            },
+        });
 
     </script>
 </div>
