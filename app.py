@@ -13,6 +13,10 @@ def get_db_connection():
     conn.row_factory = sqlite3.Row
     return conn
 
+# Define the default route for the index page
+@app.route('/')
+def default():
+    return redirect(url_for('index'))
 
 # Define the route for the about us page
 @app.route('/about')
