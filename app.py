@@ -17,7 +17,7 @@ def get_db_connection():
 # Define the route for the about us page
 @app.route('/about')
 def about():
-    return render_template('about.html')
+    return render_template('about.html', share_price_data=grabpricedata())
 
 
 # Define the route for the temporary stock index page
@@ -60,77 +60,108 @@ def graph():
 # Company detail view pages - Render detailed view template, fetch company overview stock data from db
 @app.route('/AMZN')
 def renderAMZNpage():
-    return render_template('template.html', stock=grabstockdata(0))
+    # Pull all stock data from DB and render detailed page template.
+    data = grabstockdata(0)
+    return render_template('template.html', stock=data[0], share_data=data[1], share_price_data=grabpricedata())
 
 
 @app.route('/AAPL')
 def renderAAPLpage():
-    return render_template('template.html', stock=grabstockdata(1))
+    # Pull all stock data from DB and render detailed page template.
+    data = grabstockdata(1)
+    return render_template('template.html', stock=data[0], share_data=data[1], share_price_data=grabpricedata())
 
 
 @app.route('/DELL')
 def renderDELLpage():
-    return render_template('template.html', stock=grabstockdata(2))
+    # Pull all stock data from DB and render detailed page template.
+    data = grabstockdata(2)
+    return render_template('template.html', stock=data[0], share_data=data[1], share_price_data=grabpricedata())
 
 
 @app.route('/GME')
 def renderGMEpage():
-    return render_template('template.html', stock=grabstockdata(3))
+    # Pull all stock data from DB and render detailed page template.
+    data = grabstockdata(3)
+    return render_template('template.html', stock=data[0], share_data=data[1], share_price_data=grabpricedata())
 
 
 @app.route('/GOOGL')
 def renderGOOGLpage():
-    return render_template('template.html', stock=grabstockdata(4))
+    # Pull all stock data from DB and render detailed page template.
+    data = grabstockdata(4)
+    return render_template('template.html', stock=data[0], share_data=data[1], share_price_data=grabpricedata())
 
 
 @app.route('/HPQ')
 def renderHPQpage():
-    return render_template('template.html', stock=grabstockdata(5))
+    # Pull all stock data from DB and render detailed page template.
+    data = grabstockdata(5)
+    return render_template('template.html', stock=data[0], share_data=data[1], share_price_data=grabpricedata())
 
 
 @app.route('/INTC')
 def renderINTCpage():
-    return render_template('template.html', stock=grabstockdata(6))
+    # Pull all stock data from DB and render detailed page template.
+    data = grabstockdata(6)
+    return render_template('template.html', stock=data[0], share_data=data[1], share_price_data=grabpricedata())
 
 
 @app.route('/LYFT')
 def renderLYFTpage():
-    return render_template('template.html', stock=grabstockdata(7))
+    # Pull all stock data from DB and render detailed page template.
+    data = grabstockdata(7)
+    return render_template('template.html', stock=data[0], share_data=data[1], share_price_data=grabpricedata())
 
 
 @app.route('/MSFT')
 def renderMSFTpage():
-    return render_template('template.html', stock=grabstockdata(8))
+    # Pull all stock data from DB and render detailed page template.
+    data = grabstockdata(8)
+    return render_template('template.html', stock=data[0], share_data=data[1], share_price_data=grabpricedata())
 
 
 @app.route('/NFLX')
 def renderNFLXpage():
-    return render_template('template.html', stock=grabstockdata(9))
+    # Pull all stock data from DB and render detailed page template.
+    data = grabstockdata(9)
+    return render_template('template.html', stock=data[0], share_data=data[1], share_price_data=grabpricedata())
 
 
 @app.route('/NVDA')
 def renderNVDApage():
-    return render_template('template.html', stock=grabstockdata(10))
+    # Pull all stock data from DB and render detailed page template.
+    data = grabstockdata(10)
+    return render_template('template.html', stock=data[0], share_data=data[1], share_price_data=grabpricedata())
 
 
 @app.route('/TSLA')
 def renderTSLApage():
-    return render_template('template.html', stock=grabstockdata(11))
+    # Pull all stock data from DB and render detailed page template.
+    data = grabstockdata(11)
+    return render_template('template.html', stock=data[0], share_data=data[1], share_price_data=grabpricedata())
 
 
 @app.route('/TMUS')
 def renderTMUSpage():
-    return render_template('template.html', stock=grabstockdata(12))
+    # Pull all stock data from DB and render detailed page template.
+    data = grabstockdata(12)
+    return render_template('template.html', stock=data[0], share_data=data[1], share_price_data=grabpricedata())
 
 
 @app.route('/UBER')
 def renderUBERpage():
-    return render_template('template.html', stock=grabstockdata(13))
+    # Pull all stock data from DB and render detailed page template.
+    data = grabstockdata(13)
+    return render_template('template.html', stock=data[0], share_data=data[1], share_price_data=grabpricedata())
 
 
 @app.route('/VZ')
 def renderVZpage():
-    return render_template('template.html', stock=grabstockdata(14))
+
+    # Pull all stock data from DB and render detailed page template.
+    data = grabstockdata(14)
+    return render_template('template.html', stock=data[0], share_data=data[1], share_price_data=grabpricedata())
 
 
 # Route for stock update button
@@ -147,12 +178,36 @@ def grabstockdata(input_stock_id):
     conn = get_db_connection()
     cursor = conn.cursor()
 
-    # execute query and return tuple
+    # execute query and return tuple for company and financial information
     cursor.execute(
         'SELECT * FROM stock_data INNER JOIN company_info ON stock_data.stock_id = company_info.stock_id WHERE stock_data.stock_id = ' + str(
             input_stock_id))
     stock = cursor.fetchone()
-    return stock
+
+    # execute query and return historical share data
+    cursor.execute(
+        'SELECT time, open, high, low, close FROM stock_share_prices WHERE stock_id = ' + str(
+            input_stock_id) + ' ORDER BY time'
+    )
+    share_data = cursor.fetchall()
+
+    # Create a list to store the formatted data
+    formatted_share_data = []
+
+    # Iterate over the rows and format the data
+    for row in share_data:
+        time, open_price, high_price, low_price, close_price = row
+        formatted_row = {
+            'time': str(time),  # Convert time to string if it's not already
+            'open': float(open_price),
+            'high': float(high_price),
+            'low': float(low_price),
+            'close': float(close_price)
+        }
+        formatted_share_data.append(formatted_row)
+
+    # Return stock data
+    return stock, formatted_share_data
 
 
 def grabpricedata():
