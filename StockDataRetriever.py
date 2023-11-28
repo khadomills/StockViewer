@@ -1,12 +1,17 @@
+import os
+
 import requests
 import time
 import sqlite3
 from datetime import datetime
+from dotenv import load_dotenv, dotenv_values
+
+load_dotenv()
 
 
 class StockDataRetriever:
     # Static variable for the API key
-    api_key = "6dc4b895bdmshcff1c01a07c300ep1ee1b4jsn3733ec473c54"
+    api_key = os.getenv("API_KEY")
 
     # Static variable for the stocks with their corresponding symbols
     stocks = {
@@ -350,15 +355,15 @@ class StockDataRetriever:
                     stock_id, time, open, high, low, close, volume
                 ) VALUES (?, ?, ?, ?, ?, ?, ?);
                 ''',
-                (
-                    stock_id,
-                    date_formatted,
-                    float(values['1. open']),
-                    float(values['2. high']),
-                    float(values['3. low']),
-                    float(values['4. close']),
-                    float(values['5. volume']),
-                ))
+                               (
+                                   stock_id,
+                                   date_formatted,
+                                   float(values['1. open']),
+                                   float(values['2. high']),
+                                   float(values['3. low']),
+                                   float(values['4. close']),
+                                   float(values['5. volume']),
+                               ))
 
             # Data is up-to-date, return
             else:
