@@ -1,3 +1,7 @@
+:root {
+  touch-action: pan-x pan-y;
+  height: 100%
+}
 body {
     font-family: Arial, Helvetica, sans-serif;
     margin: 100px;
@@ -57,6 +61,7 @@ body {
     background-color: #000;
     text-align: center;
     cursor: pointer;
+    position: absolute;
     width: 100%;
   }
 

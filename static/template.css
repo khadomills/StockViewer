@@ -1,3 +1,4 @@
+
 body {
     font-family: Arial, sans-serif;
     margin: 100px;
@@ -113,11 +114,13 @@ h2 {
 .text h1 {
     margin: 0;
     font-size: 2em;
+     padding: 0;
 }
 .text p {
     margin: 0;
     color: gray;
     font-size: 1em;
+    padding: 0;
 }
 
 .info-grid span {
@@ -129,11 +132,11 @@ h2 {
     max-height: 100px;
     margin-right: 15em;
 }
-
-.refresh-button {
-    position: absolute;
-    top: 142.5px;
-    right: 400px;
+.refresh-button
+ {
+    position: relative;
+    top: 60px;
+    left: -110px;
     background-color: #3498db; /* Blue color */
     color: white; /* Text color */
     border: none;
@@ -148,8 +151,14 @@ h2 {
     margin-right: 64%;
 }
 
+.container p{
+    padding-bottom: 30px;
+}
+.container h1{
+    padding: 5px 15px 0px 10px;
+}
 .refresh-button:hover {
-    background-color: white; /* Change color on hover to white */
+    background-color: #dde2e7; /* Change color on hover to white */
     color: #3498db; /* Change text color on hover to blue */
 }
 
