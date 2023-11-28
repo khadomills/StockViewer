@@ -241,6 +241,72 @@
             },
         });
 
+        const toolTipWidth = 80;
+        const toolTipHeight = 100;
+        const toolTipMargin = 15;
+
+        // Create and style the tooltip html element
+        const toolTip = document.createElement('div');
+        toolTip.style = `width: 140px; height: 170px; position: absolute; display: none; padding: 8px; box-sizing: border-box; font-size: 12px; text-align: left; z-index: 1000; top: 12px; left: 12px; pointer-events: none; border: 1px solid; border-radius: 2px;font-family: -apple-system, BlinkMacSystemFont, 'Trebuchet MS', Roboto, Ubuntu, sans-serif; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;`;
+        toolTip.style.background = 'black';
+        toolTip.style.color = 'black';
+        toolTip.style.borderColor = 'rgb(131,70,190)';
+        container1.appendChild(toolTip);
+
+        // update tooltip
+        chart.subscribeCrosshairMove(param => {
+            if (
+                param.point === undefined ||
+                !param.time ||
+                param.point.x < 0 ||
+                param.point.x > container1.clientWidth ||
+                param.point.y < 0 ||
+                param.point.y > container1.clientHeight
+            ) {
+                toolTip.style.display = 'none';
+            } else {
+                // time will be in the same format that we supplied to setData.
+                // thus it will be YYYY-MM-DD
+                const dateStr = param.time;
+                toolTip.style.display = 'block';
+                const data = param.seriesData.get(mainSeries);
+                const price = data.value !== undefined ? data.value : data.close;
+                const open = data.value !== undefined ? data.value : data.open;
+                const low = data.value !== undefined ? data.value : data.low;
+                const high = data.value !== undefined ? data.value : data.high;
+
+                toolTip.innerHTML = `<div style="color: ${'#9B7DFF'}">Apple Inc.</div><div style="font-size: 24px; margin: 4px 0px; color: ${'white'}">
+                    ${Math.round(100 * price) / 100}
+                    </div>
+                    <div style="color: ${'white'}">Trading day: ${dateStr}</div>
+                    <div style="color: ${'#9B7DFF'}">Open price: ${open}</div>
+                    <div style="color: ${'#9B7DFF'}">Low price: ${low}</div>
+                    <div style="color: ${'#9B7DFF'}">High price: ${high}</div>`;
+
+                const coordinate = mainSeries.priceToCoordinate(price);
+                let shiftedCoordinate = param.point.x - 50;
+                if (coordinate === null) {
+                    return;
+                }
+                shiftedCoordinate = Math.max(
+                    0,
+                    Math.min(container1.clientWidth - toolTipWidth, shiftedCoordinate)
+                );
+                const coordinateY =
+                    coordinate - toolTipHeight - toolTipMargin > 0
+                        ? coordinate - toolTipHeight - toolTipMargin
+                        : Math.max(
+                            0,
+                            Math.min(
+                                container1.clientHeight - toolTipHeight - toolTipMargin,
+                                coordinate + toolTipMargin
+                            )
+                        );
+                toolTip.style.left = shiftedCoordinate + 50 + 'px';
+                toolTip.style.top = coordinateY + 325 +  'px';
+            }
+        });
+
     </script>
 </div>
 
