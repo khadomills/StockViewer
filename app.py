@@ -13,6 +13,10 @@ def get_db_connection():
     conn.row_factory = sqlite3.Row
     return conn
 
+# Define the default route for the index page
+@app.route('/')
+def default():
+    return redirect(url_for('index'))
 
 # Define the route for the about us page
 @app.route('/about')
@@ -220,7 +224,8 @@ def grabpricedata():
     last_update = cursor.fetchone()[0]
 
     # Fetch share price data for given date
-    cursor.execute('SELECT * from stock_share_prices WHERE time = \'' + last_update + '\'')
+    cursor.execute('SELECT name, symbol, stock_share_prices.stock_id, time, open, high, low, close, volume from stock_share_prices INNER JOIN stock_data ON stock_share_prices.stock_id = stock_data.stock_id WHERE time = \'' + last_update + '\'')
+
     share_price_data = cursor.fetchall()
 
     # Return tuple
