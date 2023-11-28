@@ -1,0 +1,168 @@
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 100px;
+    padding: 0;
+    background-color: #ffffff;
+    
+}
+
+.container {
+    max-width: 100%;
+    margin: 50px auto;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header img {
+    max-width: 25%;
+   /* background-color: #000;*/
+    border-radius: 50%;
+    margin-right: 20px;
+}
+
+.header h1 {
+    font-size: 24px;
+}
+
+.header span {
+    font-size: 14px;
+    margin-right: 20px;
+}
+
+.icons, .footer-icons {
+    display: flex;
+    gap: 10px;
+}
+
+button {
+    background-color: #ebebeb;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #d0d0d0;
+}
+
+.tabs button.active {
+    background-color: #007BFF;
+    color: #ffffff;
+}
+
+.stock-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.stock-info h2 {
+    font-size: 36px;
+}
+
+.chart h3 {
+    font-size: 18px;
+    margin-top: 20px;
+}
+
+/* ... Previous CSS ... */
+
+.key-stats, .about {
+    margin-top: 40px;
+    background-color: #ffffff;
+}
+
+h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 10px;
+}
+
+.stats-grid, .info-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.stats-grid div, .info-grid div {
+    display: flex;
+    justify-content: space-between;
+    font-size: 16px;
+    align-items: center;
+    border-right: 1px solid #e0e0e0;
+    padding-right: 10px;
+}
+
+.stats-grid span, .info-grid span {
+    font-weight: bold;
+    color: #333;
+}
+
+.text h1 {
+    margin: 0;
+    font-size: 2em;
+     padding: 0;
+}
+.text p {
+    margin: 0;
+    color: gray;
+    font-size: 1em;
+    padding: 0;
+}
+
+.info-grid span {
+    padding-right: 10px; /* Adjust as needed for the desired padding */
+}
+
+.logo {
+    max-width: 100px; /* Adjust as needed */
+    max-height: 100px;
+    margin-right: 15em;
+}
+.refresh-button
+ {
+    position: relative;
+    top: 60px;
+    left: -110px;
+    background-color: #3498db; /* Blue color */
+    color: white; /* Text color */
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    transition: background-color 0.3s; /* Add transition for smooth effect */
+    margin-right: 64%;
+}
+
+.container p{
+    padding-bottom: 30px;
+}
+.container h1{
+    padding: 5px 15px 0px 10px;
+}
+.refresh-button:hover {
+    background-color: #dde2e7; /* Change color on hover to white */
+    color: #3498db; /* Change text color on hover to blue */
+}
+
+
+.info-grid div {
+    margin-right: 2%;
+}

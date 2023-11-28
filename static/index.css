@@ -1,0 +1,199 @@
+
+
+body{
+    overflow-x: hidden;
+  }
+  body::before {
+    display: block;
+    content: '';
+    height: 60px;
+  }
+  
+  
+  
+  .column {
+    flex-basis: 50%;
+    padding: 10px;
+  }
+  
+  /*--Slider--*/
+    .carousel-item{
+      height:100vh;
+    }
+    .carousel-caption{
+      position: absolute;
+      top:38%;
+      text-transform: uppercase;
+      width: 100%;
+  
+      right: 0;
+      left: 0;
+    }
+    .carousel-caption h1{
+      font-size: 3.8rem;
+      font-weight: 700;
+      letter-spacing : .3rem;
+      text-shadow: .1rem .1rem .8rem black;
+      padding-bottom: 1rem ;
+  
+    }
+    .carousel-caption h3{
+      font-size: 2rem;
+      font-weight: 700;
+      text-shadow: .1rem .1rem .5rem black;
+      padding-bottom: 1.6rem ;
+  
+    }
+      
+    
+    .center {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh; /* vh stands for viewport height */
+    }
+    
+    /*Images*/
+   
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+    }
+    .title {
+        text-align: center;
+        font-size: 3em;
+        margin-bottom: 20px;
+    }
+    #photos {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .photo-item {
+        padding: 10px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        margin: 10px;
+    }
+    .photo-item img {
+        max-width: 300px; /* You can adjust this */
+        height: auto;
+    }
+    
+    /*videos*/
+    .video-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap; /* this allows the items to wrap to the next line */
+      gap: 20px; /* this creates some space around each video */
+  }
+  
+  .bg-image {
+  background-size: cover;
+  min-height: 60vh;
+  position: relative;
+  color: white;
+  font-size: 3.8rem;
+  font-weight: 700;
+  letter-spacing : .3rem;
+  text-shadow: .1rem .1rem .8rem black;
+  padding-bottom: 1rem ;
+  }
+
+  h1{
+    font-size: 4em;
+  }
+  
+  .color-overlay{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.2);
+    text-transform: uppercase;
+  }
+  @media (max-width: 765px){
+    .bg-image{
+        min-height:30vh;
+       
+    }
+    h1{
+        font-size: calc(1.525rem + 3.3vw);
+    }
+  }
+ /*New One*/
+body, html {
+  height: 100%;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+}
+
+.stock-widgets-container {
+  padding: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.stock-widgets-container1 {
+  padding: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.stock-widget {
+  background: white;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  width: 300px;
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.stock-summary {
+  padding: 16px;
+  background: #f8f8f8;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #ddd;
+}
+
+.stock-logo {
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+}
+
+.stock-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.stock-card {
+  max-height: 0;
+  padding: 0 16px;
+  background: #fff;
+  font-size: 0.9em;
+  overflow: hidden;
+  transition: max-height 0.5s ease, padding 0.5s ease-out;
+}
+
+.stock-card.toggled {
+  max-height: 1000px; /* Should be enough to cover the content */
+  padding: 16px;
+  transition: max-height 0.5s ease, padding 0.5s ease-in;
+}
+
+/* Style for positive and negative price changes */
+.price-up {
+  color: #4CAF50; /* Green for rise */
+}
+
+.price-down {
+  color: #F44336; /* Red for fall */
+}
+
+    
+  
+  
