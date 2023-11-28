@@ -73,6 +73,7 @@
         <div class="header">
             <img src="{{url_for('static', filename='/Image/stocks.jpg')}}" alt="Logo" class="logo">
             <div class="text">
+              <button class="refresh-button" onClick="window.location.href = '{{ url_for(stock_id=stock['stock_id'], symbol=stock['symbol']) }}';">Refresh</button>
               <h1>{{ stock['name'] }}</h1>
               <p>{{ stock['symbol'] }} • NASDAQ</p>
           </div>
