@@ -270,7 +270,6 @@
                 const dateStr = param.time;
                 toolTip.style.display = 'block';
                 const data = param.seriesData.get(mainSeries);
-                const name = data.value !== undefined ? data.value : data.name;
                 const price = data.value !== undefined ? data.value : data.close;
                 const open = data.value !== undefined ? data.value : data.open;
                 const low = data.value !== undefined ? data.value : data.low;
