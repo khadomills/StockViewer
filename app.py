@@ -36,9 +36,21 @@ def index():
 # Define endpoint route for fetching all stock data, load into DB, and redirect to homepage
 @app.route('/fetchalldata')
 def fetchalldata():
+    # Create API grabber object and refresh all  data for every stock
     api_grabber = StockDataRetriever()
-    api_grabber.fetch_overview_data()
-    api_grabber.fetch_historical_data()
+    flag = api_grabber.fetch_overview_data()
+
+    # Check if flag contains negative response, redirect to error page output message
+    if flag[0] == -1:
+        print(flag[1])
+        return redirect(url_for('error', error_message=flag[1], symbol='index'))
+    flag = api_grabber.fetch_historical_data()
+
+    # Check if flag contains negative response, redirect to error page output message
+    if flag[0] == -1:
+        print(flag[1])
+        return redirect(url_for('error', error_message=flag[1], symbol='index'))
+
     return redirect(url_for('index'))
 
 
