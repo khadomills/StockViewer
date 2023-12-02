@@ -13,10 +13,12 @@ def get_db_connection():
     conn.row_factory = sqlite3.Row
     return conn
 
+
 # Define the default route for the index page
 @app.route('/')
 def default():
     return redirect(url_for('index'))
+
 
 # Define the route for the about us page
 @app.route('/about')
@@ -37,28 +39,45 @@ def fetchalldata():
     api_grabber = StockDataRetriever()
     api_grabber.fetch_overview_data()
     api_grabber.fetch_historical_data()
-    return redirect(url_for('about'))
+    return redirect(url_for('index'))
 
 
 # Define endpoint route for fetching company overview data, load into DB, and redirect to homepage
 @app.route('/fetchoverviewdata')
 def fetchoverviewdata():
+    # Create API grabber object and refresh all overview data for every stock
     api_grabber = StockDataRetriever()
-    api_grabber.fetch_overview_data()
-    return redirect(url_for('about'))
+    flag = api_grabber.fetch_overview_data()
+
+    # Check if flag contains negative response, redirect to error page output message
+    if flag[0] == -1:
+        print(flag[1])
+        return redirect(url_for('error', error_message=flag[1], symbol='index'))
+
+    # Render homepage
+    return redirect(url_for('index'))
 
 
 # Define endpoint route for fetching historical share data, load into DB, and redirect to homepage
 @app.route('/fetchhistoricaldata')
 def fetchhistoricaldata():
+    # Create API grabber object and refresh all historical share data for every stock
     api_grabber = StockDataRetriever()
-    api_grabber.fetch_historical_data()
-    return redirect(url_for('about'))
+    flag = api_grabber.fetch_historical_data()
+
+    # Check if flag contains negative response, redirect to error page output message
+    if flag[0] == -1:
+        print(flag[1])
+        return redirect(url_for('error', error_message=flag[1], symbol='index'))
+
+    # Render homepage
+    return redirect(url_for('index'))
 
 
-@app.route('/graph.html')
-def graph():
-    return render_template('graph.html')
+# Route for API error page
+@app.route('/error/<error_message>/<symbol>')
+def error(error_message, symbol):
+    return render_template('error.html', error_message=error_message, symbol=symbol)
 
 
 # Company detail view pages - Render detailed view template, fetch company overview stock data from db
@@ -162,7 +181,6 @@ def renderUBERpage():
 
 @app.route('/VZ')
 def renderVZpage():
-
     # Pull all stock data from DB and render detailed page template.
     data = grabstockdata(14)
     return render_template('template.html', stock=data[0], share_data=data[1], share_price_data=grabpricedata())
@@ -171,8 +189,20 @@ def renderVZpage():
 # Route for stock update button
 @app.route('/update_stock/<int:stock_id>/<string:symbol>')
 def update_stock(stock_id, symbol):
+    # Create API grabber object and refresh stock
     api_grabber = StockDataRetriever()
-    api_grabber.fetch_one_stock(stock_id, symbol)
+    flag = api_grabber.fetch_one_stock(stock_id, symbol)
+
+    # Check if flag contains negative response, redirect to error page output message
+    if flag[0] == -1:
+        error_message = flag[1]
+        print(error_message)
+
+        # Redirect to error message page
+        return redirect(url_for('error', error_message=error_message, symbol=symbol))
+    else:
+        print(flag[1])
+
     return redirect(url_for('render' + symbol + 'page'))
 
 

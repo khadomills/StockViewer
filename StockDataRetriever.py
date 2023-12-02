@@ -61,7 +61,10 @@ class StockDataRetriever:
 
             # Process the data to json format
             data = response.json()
-            # print(data)
+
+            # Check if 'message' header is present indicating error
+            if 'message' in data:
+                return -1, {data["message"]}
 
             # Iterate over each date in the API response
             for date, values in data['Time Series (Daily)'].items():
@@ -130,7 +133,10 @@ class StockDataRetriever:
 
             # Process the data to json format
             data = response.json()
-            # print(data)
+
+            # Check if 'message' header is present indicating error
+            if 'message' in data:
+                return -1, {data["message"]}
 
             # Connect to SQLite database
             conn = sqlite3.connect('database.db')
@@ -236,6 +242,10 @@ class StockDataRetriever:
         data = response.json()
         # print(data)
 
+        # Check if 'message' header is present indicating error
+        if 'message' in data:
+            return -1, {data["message"]}
+
         # Connect to SQLite database
         conn = sqlite3.connect('database.db')
         cursor = conn.cursor()
@@ -336,6 +346,10 @@ class StockDataRetriever:
         # Process the data into json response
         data = response.json()
 
+        # Check if 'message' header is present indicating error
+        if 'message' in data:
+            return -1, {data["message"]}
+
         # Iterate over each date in the API response
         for date, values in data['Time Series (Daily)'].items():
             # Convert the date to the required format
@@ -375,3 +389,6 @@ class StockDataRetriever:
         conn.close()
         # Print a message indicating that data has been fetched
         print(f'Fetched Historical Share Data for {stock_id} ({symbol})')
+
+        # Return success to flag
+        return 1, "Success"
