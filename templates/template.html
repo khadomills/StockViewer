@@ -317,7 +317,6 @@
         <div><span>Dividends yield (FY)</span>{{ stock['div_yield'] }}</div>
         <div><span>Price to earnings Ratio (TTM)</span>{{ stock['PERatio'] }}</div>
         <div><span>Basic EPS (TTM)</span>{{ stock['EPS'] }}</div>
-        <div><span>Net income</span>{{ stock['fiscal_year_end'] }}</div>
         <div><span>Revenue</span>${{ "{:,.0f}".format(stock['revenueTTM']|int) }}</div>
         <div><span>Shares float</span>{{ "{:,.0f}".format(stock['shares_outstanding']|int) }}</div>
         <div><span>Beta</span>{{ stock['beta'] }}</div>
