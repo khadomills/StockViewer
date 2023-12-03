@@ -53,16 +53,11 @@
                     <li><a class="dropdown-item" href="{{ (url_for('renderTMUSpage')) }}">T-Mobile US Inc [TMUS]</a></li>
                     <li><a class="dropdown-item" href="{{ (url_for('renderUBERpage')) }}">Uber Technologies Inc [UBER]</a></li>
                     <li><a class="dropdown-item" href="{{ (url_for('renderVZpage')) }}">Verizon Communications Inc [VZ]</a></li>
-                    <li>
-                      <hr class="dropdown-divider">
-                    </li>
+
                   </ul>
                 </li>
               </ul>
-              <form class="d-flex mt-3" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-              </form>
+
             </div>
           </div>
         </div>
@@ -71,7 +66,8 @@
     <!-- HEADER IMAGE SECTION* -->
       <div class="container">
         <div class="header">
-            <img src="{{url_for('static', filename='/Image/stocks.jpg')}}" alt="Logo" class="logo">
+            <!--<img src="{{url_for('static', filename='/Image/stocks.jpg')}}" alt="Logo" class="logo">-->
+            <img src="{{ url_for('static', filename='Image/' + stock['symbol'].lower() + '.jpg') }}" alt="{{ stock['name'] }} Logo" class="stock-logo">
             <div class="text">
             <a href="{{ url_for('update_stock', stock_id=stock['stock_id'], symbol=stock['symbol'])}}">
             <button class="refresh-button">Refresh</button>

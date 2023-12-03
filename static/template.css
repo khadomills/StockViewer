@@ -166,3 +166,14 @@ h2 {
 .info-grid div {
     margin-right: 2%;
 }
+/*Hamburger*/
+.dropdown-item:hover {
+
+        background-color: lightblue;
+    }
+.stock-logo {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    margin-right: 0.5rem;
+}
