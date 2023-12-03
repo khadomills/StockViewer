@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error Popup</title>
+    <style>
+        /* Add some basic styling for the popup */
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        #popup-container {
+            display: none;
+            background-color: rgba(0, 0, 0, 0.5);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #popup {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        #close-btn {
+            margin-top: 20px;
+            cursor: pointer;
+            color: #007BFF;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<div id="popup-container">
+    <div id="popup">
+        <h2>Error Message</h2>
+        <p id="error-message"></p>
+        <div id="close-btn">Close</div>
+    </div>
+</div>
+
+html
+
+<script>
+    // Function to decode HTML entities
+    function decodeHtmlEntities(encodedString) {
+        var textArea = document.createElement('textarea');
+        textArea.innerHTML = encodedString;
+        var decodedString = textArea.value;
+
+        // Remove the first and last two characters
+        decodedString = decodedString.substring(2, decodedString.length - 2);
+
+        return decodedString
+    }
+
+    // Function to show the popup with a given error message
+    function showErrorPopup(message) {
+        document.getElementById('error-message').innerText = message;
+        document.getElementById('popup-container').style.display = 'flex';
+
+        // Set the symbol as a data attribute for later redirect
+        document.getElementById('popup-container').setAttribute('data-symbol', symbol);
+    }
+
+    // Function to close the popup and navigate back to the previous stock page
+    function closePopup() {
+        var symbol = document.getElementById('popup-container').getAttribute('data-symbol');
+        window.location.href = '/' + symbol;
+    }
+
+    // Show the popup with an error message
+    var encodedErrorMessage = '{{ error_message }}';
+    var decodedErrorMessage = decodeHtmlEntities(encodedErrorMessage);
+    var symbol = '{{ symbol }}';
+    showErrorPopup(decodedErrorMessage);
+
+    // Close the popup when the close button is clicked
+    document.getElementById('close-btn').addEventListener('click', closePopup);
+</script>
+
+
+</body>
+</html>
