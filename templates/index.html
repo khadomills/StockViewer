@@ -6,7 +6,93 @@
     <title>C Stocks</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel = "stylesheet" href = "{{url_for('static', filename='/index.css')}}">
-    
+
+      <!-- Add this inside the <head> tag -->
+<style>
+.card-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1rem;
+    padding: 1rem;
+}
+
+.card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+.card:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem;
+    background-color: #f8f8f8;
+    cursor: pointer;
+    border-bottom: 1px solid #ddd;
+}
+
+.card-header:hover {
+    background-color: #ececec;
+}
+
+.stock-logo {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    margin-right: 0.5rem;
+}
+
+.card-header h2 {
+    font-size: 1rem;
+    margin: 0;
+    color: #333;
+    font-weight: 400;
+}
+
+.card-content {
+    display: none;
+    padding: 0.5rem;
+    line-height: 1.5;
+}
+
+.card-content p {
+    margin: 0.5rem 0;
+}
+
+.stock-name {
+    margin-right: 30px; /* Adjust the value as needed */
+    display: inline; /* To ensure the name and symbol are on the same line */
+    font-size: 1.25rem; /* Example size - adjust as needed */
+    font-weight: bold; /* Example styling - adjust as needed */
+}
+
+.stock-symbol {
+    display: inline; /* To ensure the name and symbol are on the same line */
+    font-size: 1rem; /* Example size - adjust as needed */
+    color: #555; /* Example color - adjust as needed */
+}
+
+
+
+/* Utility classes for stock price changes */
+.price-up {
+    color: #4CAF50; /* Green for price up */
+}
+
+.price-down {
+    color: #F44336; /* Red for price down */
+}
+
+
+</style>
+
 </head>
   <body>
     
@@ -77,132 +163,51 @@
         <!-- Stock widgets will be generated here -->
     </div>
 
-    
 
-    <script type="text/javascript">
-                const companies = {
-            "Amazon": "AMZN",
-            "Apple": "AAPL",
-            "Dell": "DELL",
-            "GameStop": "GME",
-            "Google": "GOOGL",
-            "HP": "HPQ",
-            "Intel": "INTC",
-            "Lyft": "LYFT",
-            "Microsoft": "MSFT",
-            "Netflix": "NFLX",
-            "NVIDIA": "NVDA",
-            "Tesla": "TSLA",
-            "T-Mobile": "TMUS",
-            "Uber": "UBER",
-            "Verizon": "VZ",
-        };
+<!-- This goes inside the <body> tag -->
+<div class="card-container">
+    {% for stock in share_price_data%}
+        <div class="card">
 
-        function createStockWidget(symbol, name) {
-            const widget = document.createElement('div');
-            widget.className = 'stock-widget';
-            widget.innerHTML = `
-                <div class="stock-summary" onclick="toggleCard('${symbol}')">
-                    <img src="{{ url_for('static', filename='Image/') }}${symbol.toLowerCase()}.jpg" alt="${name} Logo" class="stock-logo">
-                    <div class="stock-info">
-                        <span>${name} (${symbol})</span>
-                        <span id="company-price-${symbol}">-- USD</span>
-                        <span id="price-change-${symbol}" class="price-change">(--%)</span>
-                    </div>
-                </div>
-                <div id="stock-card-${symbol}" class="stock-card">
-                    <!-- Detailed stats will be populated here -->
-                </div>
-            `;
-            return widget;
-        }
+                     <div class="card-header" onclick="toggleCard('card{{ loop.index }}')">
+                <img src="{{ url_for('static', filename='Image/' + stock['symbol'].lower() + '.jpg') }}" alt="{{ stock['name'] }} Logo" class="stock-logo">
+                <h2 class="stock-name">{{ stock['name'] }}</h2>
+                <!--<h2 class="stock-symbol">{{ stock['symbol'] }}</h2>-->
 
-        function toggleCard(symbol) {
-            const stockCard = document.getElementById(`stock-card-${symbol}`);
-            stockCard.classList.toggle('toggled');
-        }
+            </div>
 
-        function fetchStockData(symbol) {
-            const apiKey = 'QEHLSEQZWQ0SZGJA';
-            const overviewUrl = `https://www.alphavantage.co/query?function=OVERVIEW&symbol=${symbol}&apikey=${apiKey}`;
-            const quoteUrl = `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${symbol}&apikey=${apiKey}`;
-
-            Promise.all([
-                fetch(overviewUrl).then(response => response.json()),
-                fetch(quoteUrl).then(response => response.json())
-            ]).then(([overviewData, quoteData]) => {
-                const quote = quoteData['Global Quote'];
-                updateStockSummary(symbol, quote);
-                updateStockCard(symbol, overviewData, quote);
-            }).catch(error => console.error('Error fetching data:', error));
-        }
+            <div class="card-content" id="card{{ loop.index }}">
+                <p>Opening Price: $USD {{ stock['open'] }}</p> <!-- Replace 'open' with the appropriate key -->
+                <p>Low Price: $USD {{ stock['low'] }}</p>     <!-- Replace 'low' with the appropriate key -->
+                <p>High Price: $USD {{ stock['high'] }}</p>   <!-- Replace 'high' with the appropriate key -->
+                 <p>Volume: {{ stock['volume'] }}</p>   <!-- Replace 'Volume' with the appropriate key -->
+                <p>Closing Date: {{ stock['time'] }}</p> <!-- Replace 'time' with the appropriate key -->
+                <!-- Add closing time if available -->
 
 
-        function formatLargeNumber(value) {
-            if (value >= 1e12) {
-                return (value / 1e12).toFixed(2) + 'T';
-            } else if (value >= 1e9) {
-                return (value / 1e9).toFixed(2) + 'B';
-            } else if (value >= 1e6) {
-                return (value / 1e6).toFixed(2) + 'M';
-            } else {
-                return value.toLocaleString();
-            }
-        }
+                <button type="button" class="btn btn-primary" onclick="location.href='{{ url_for('render' + stock['symbol'] + 'page') }}';"
+        style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
+  See More
+</button>
+  </div>
 
-        function updateStockSummary(symbol, quote) {
-            const price = parseFloat(quote['05. price']).toFixed(2);
-            const change = parseFloat(quote['09. change']).toFixed(2);
-            const changePercent = parseFloat(quote['10. change percent']).toFixed(2);
+        </div>
 
-            const priceElement = document.getElementById(`company-price-${symbol}`);
-            const changeElement = document.getElementById(`price-change-${symbol}`);
+    {% endfor %}
 
-            priceElement.textContent = `${price} USD`;
-            changeElement.textContent = `${change} (${changePercent}%)`;
+</div>
 
-            // Apply different classes based on positive or negative change
-            if (change >= 0) {
-                changeElement.className = 'price-up';
-            } else {
-                changeElement.className = 'price-down';
-            }
-        }
+<script>
+function toggleCard(cardId) {
+    var content = document.getElementById(cardId);
+    if (content.style.display === "block") {
+        content.style.display = "none";
+    } else {
+        content.style.display = "block";
+    }
+}
 
-        function updateStockCard(symbol, overviewData, quote) {
-            const volume = formatLargeNumber(parseFloat(quote['06. volume']));
-            const marketCap = formatLargeNumber(parseFloat(overviewData['MarketCapitalization']));
-            const dividendYield = (parseFloat(overviewData['DividendYield']) * 100).toFixed(2) + '%';
-
-            const stockCard = document.getElementById(`stock-card-${symbol}`);
-            stockCard.innerHTML = `
-                <div>Market Closed: ${quote['07. latest trading day']} ${quote['08. previous close']}</div>
-                <div>Volume: ${volume}</div>
-                <div>Market Capitalization: ${marketCap}</div>
-                <div>Dividends Yield (FY): ${dividendYield}</div>
-            `;
-        }
-
-        function initializeWidgets() {
-            const container = document.getElementById('stock-widgets-container');
-
-            for (const [name, symbol] of Object.entries(companies)) {
-                const widget = createStockWidget(symbol, name);
-                container.appendChild(widget);
-                fetchStockData(symbol); // Fetch data for each symbol
-            }
-
-
-        }
-
-
-
-
-
-
-        initializeWidgets();
-
-    </script>
+</script>
 
 
    

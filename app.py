@@ -261,12 +261,27 @@ def grabpricedata():
     conn = get_db_connection()
     cursor = conn.cursor()
 
-    # Fetch the last loaded share price date
-    cursor.execute('SELECT MAX(time) from stock_share_prices')
-    last_update = cursor.fetchone()[0]
+    # Fetch share price data for max date from each stock
+    cursor.execute('''
+            SELECT
+                stock_data.name,
+                stock_data.symbol,
+                stock_share_prices.stock_id,
+                MAX(stock_share_prices.time) as time,
+                open,
+                high,
+                low,
+                close,
+                volume
+            FROM
+                stock_share_prices
+            INNER JOIN stock_data ON stock_share_prices.stock_id = stock_data.stock_id
+            GROUP BY
+                stock_data.name,
+                stock_data.symbol,
+                stock_share_prices.stock_id
+        ''')
 
-    # Fetch share price data for given date
-    cursor.execute('SELECT * from stock_share_prices WHERE time = \'' + last_update + '\'')
     share_price_data = cursor.fetchall()
 
     # Return tuple

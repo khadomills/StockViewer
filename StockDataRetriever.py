@@ -83,7 +83,7 @@ class StockDataRetriever:
                     cursor.execute('''
                                         INSERT INTO stock_share_prices (
                                             stock_id, time, open, high, low, close, volume
-                                        ) VALUES (?, ?, ?, ?, ?, ?, ?);
+                                        ) VALUES ( ?, ?, ?, ?, ?, ?, ?);
                                     ''', (
                         stock_id,
                         date_formatted,
