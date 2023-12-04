@@ -87,12 +87,13 @@
             </div>
 
             <div class="card-content" id="card{{ loop.index }}">
-                <p>Opening Price: $USD {{ stock['open'] }}</p> <!-- Replace 'open' with the appropriate key -->
-                <p>Low Price: $USD {{ stock['low'] }}</p>     <!-- Replace 'low' with the appropriate key -->
-                <p>High Price: $USD {{ stock['high'] }}</p>   <!-- Replace 'high' with the appropriate key -->
-                 <p>Volume: {{ stock['volume'] }}</p>   <!-- Replace 'Volume' with the appropriate key -->
-                <p>Closing Date: {{ stock['time'] }}</p> <!-- Replace 'time' with the appropriate key -->
-                <!-- Add closing time if available -->
+                <p>Close Price: $USD {{ "{:.2f}".format(stock['close']) }}</p>
+                <p>Opening Price: $USD {{ "{:.2f}".format(stock['open']) }}</p>
+                <p>Low Price: $USD {{ "{:.2f}".format(stock['low']) }}</p>
+                <p>High Price: $USD {{ "{:.2f}".format(stock['high']) }}</p>
+                 <p>Volume: {{ "{:,.0f}".format(stock['volume']) }}</p>
+                <p>Closing Date: {{ stock['time'] }}</p>
+
 
 
                 <button type="button" class="btn btn-primary" onclick="location.href='{{ url_for('render' + stock['symbol'] + 'page') }}';"
