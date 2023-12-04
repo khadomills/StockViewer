@@ -76,49 +76,49 @@
 
 <!-- This goes inside the <body> tag -->
 <div class="card-container">
-    {% for stock in share_price_data%}
+    {% for stock in share_price_data %}
         <div class="card">
-
-                     <div class="card-header" onclick="toggleCard('card{{ loop.index }}')">
+            <div class="card-header" onclick="toggleCard('cardContent{{ loop.index }}')">
                 <img src="{{ url_for('static', filename='Image/' + stock['symbol'].lower() + '.jpg') }}" alt="{{ stock['name'] }} Logo" class="stock-logo">
                 <h2 class="stock-name">{{ stock['name'] }}</h2>
-                <!--<h2 class="stock-symbol">{{ stock['symbol'] }}</h2>-->
-
             </div>
-
-            <div class="card-content" id="card{{ loop.index }}">
+            <div class="card-content" id="cardContent{{ loop.index }}">
                 <p>Close Price: $USD {{ "{:.2f}".format(stock['close']) }}</p>
                 <p>Opening Price: $USD {{ "{:.2f}".format(stock['open']) }}</p>
                 <p>Low Price: $USD {{ "{:.2f}".format(stock['low']) }}</p>
                 <p>High Price: $USD {{ "{:.2f}".format(stock['high']) }}</p>
-                 <p>Volume: {{ "{:,.0f}".format(stock['volume']) }}</p>
+                <p>Volume: {{ "{:,.0f}".format(stock['volume']) }}</p>
                 <p>Closing Date: {{ stock['time'] }}</p>
-
-
-
-                <button type="button" class="btn btn-primary" onclick="location.href='{{ url_for('render' + stock['symbol'] + 'page') }}';"
-        style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
-  See More
-</button>
-  </div>
-
+                <button type="button" class="btn btn-primary" onclick="location.href='{{ url_for('render' + stock['symbol'] + 'page') }}';">
+                    See More
+                </button>
+            </div>
         </div>
-
     {% endfor %}
-
 </div>
 
+
+
 <script>
-function toggleCard(cardId) {
-    var content = document.getElementById(cardId);
-    if (content.style.display === "block") {
-        content.style.display = "none";
+function toggleCard(cardContentId) {
+    var content = document.getElementById(cardContentId);
+    console.log('Trying to toggle card:', cardContentId); // Debugging line
+
+    // Ensure we have the element before trying to change its display property
+    if (content) {
+        if (content.style.display === "block") {
+            content.style.display = "none";
+        } else {
+            content.style.display = "block";
+        }
+        console.log('Toggled display to:', content.style.display); // Debugging line
     } else {
-        content.style.display = "block";
+        console.log('No element found with ID:', cardContentId); // Debugging line
     }
 }
-
 </script>
+
+
 
 
    
