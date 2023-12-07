@@ -26,6 +26,7 @@ body {
     padding: 0 8px;
   }
 
+
   .card {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     margin: 8px;
@@ -83,3 +84,33 @@ body {
 
         background-color: lightblue;
     }
+
+/*REsponsive*/
+
+.column {
+    width: 100%; /* for mobile */
+    float: left;
+    padding: 5px; /* optional */
+}
+
+.card {
+    max-width: 300px; /* or any suitable width */
+    margin: auto;
+    /* Other styles */
+}
+@media only screen and (min-width: 600px) {
+    .column {
+        width: 50%; /* 2 columns on larger screens */
+    }
+}
+
+@media only screen and (min-width: 1000px) {
+    .column {
+        width: 33.33%; /* 3 columns on even larger screens */
+    }
+}
+
+.custom-image {
+    width: 100%;
+    height: auto;
+}
