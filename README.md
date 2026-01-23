@@ -4,6 +4,7 @@
 ## Overview
 ---------------------
 The Stock Viewer is a web application designed for personal investors and financial enthusiasts to track and view details of various prominent stocks. 
+<br><br> You can check the live website at https://usstockviewer.onrender.com/index
 This application provides daily up-to-date information on 15 major companies, leveraging the Flask framework for the backend, Bootstrap for a responsive front-end design, and SQLite3 for efficient data storage.
 <br><br>The 15 Stocks shown in this application are:<br>
 Amazon: AMZN<br>
